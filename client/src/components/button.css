@@ -1,6 +1,7 @@
+@import url("./text.css");
 /* Basic button styles */
 button {
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 14px;
   padding: 10px 20px;
   border-radius: 5px;
@@ -12,12 +13,12 @@ button {
 
 /* Style for primary buttons */
 .primary-btn {
-  background-color: blue;
+  background-color: #2EC4B6;
   color: white;
 }
 
 .primary-btn:hover {
-  background-color: lightblue;
+  background-color: #5ad8cc;
 }
 
 .primary-btn:active {
@@ -26,12 +27,12 @@ button {
 
 /* Style for secondary buttons */
 .secondary-btn {
-  background-color: lightgrey;
+  background-color: #F0F0F0;
   color: black;
 }
 
 .secondary-btn:hover {
-  background-color: grey;
+  background-color: #E5E5E5;
 }
 
 .secondary-btn:active {
@@ -41,12 +42,12 @@ button {
 /* Style for tertiary buttons */
 .tertiary-btn {
   background-color: white;
-  color: blue;
-  border: 2px solid blue;
+  color: #2EC4B6;
+  border: 2px solid #2EC4B6;
 }
 
 .tertiary-btn:hover {
-  background-color: lightblue;
+  background-color: #F5F5F5;
 }
 
 .tertiary-btn:active {

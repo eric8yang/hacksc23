@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { ReactMic } from 'react-mic';
 import { storage, ref } from '../server/server';
 import { uploadString } from "@firebase/storage";
+import Transcript from "./transcript";
 import './button.css';
 
 const SpeechDetection = () => {
@@ -90,7 +91,7 @@ const SpeechDetection = () => {
             strokeColor="#000000"
             backgroundColor="#FFFFFF" />
         </div>
-        <p>{transcript}</p>
+        {Transcript(transcript)}
         {summary && <p>Summary: {summary}</p>}
       </div>
     );
