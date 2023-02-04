@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import SpeechDetection from './components/speech-detect';
 import { auth } from './server/server';
-import { GoogleAuthProvider, signInWithPopup, signOut, getAuth } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import './App.css';
 
 const App = () => {
@@ -17,7 +17,6 @@ const App = () => {
   };
 
   const logOut = () => {
-    const auth = getAuth();
     signOut(auth).then(() => {
       setUser(null);
     });
