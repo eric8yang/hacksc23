@@ -1,6 +1,7 @@
 import SpeechRecognition, { useSpeechRecognition} from "react-speech-recognition";
 import axios from "axios";
 import React, { useState } from 'react';
+import { ReactMic } from 'react-mic';
 import { storage, ref } from '../server/server';
 import { uploadString } from "@firebase/storage";
 
@@ -15,6 +16,17 @@ const SpeechDetection = () => {
     });
 
     const [summary, setSummary] = useState(null);
+    const [recording, setRecording] = useState(null)
+
+    const startRecording = () => {
+      setRecording(true);
+      SpeechRecognition.startListening();
+    }
+   
+    const stopRecording = () => {
+      setRecording(false);
+      SpeechRecognition.stopListening();
+    }
 
    
     if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
@@ -64,12 +76,19 @@ const SpeechDetection = () => {
     return (
       <div>
         <p>Microphone: {listening ? 'on' : 'off'} </p>
-        <button onClick={SpeechRecognition.startListening}>Start</button>
-        <button onClick={SpeechRecognition.stopListening}>Stop</button>
+        <button onClick={startRecording}>Start</button>
+        <button onClick={stopRecording}>Stop</button>
         <button onClick={resetTranscript}>Reset</button>
         <button onClick={handleDownload}>Download</button>
         <button onClick={saveText}>Save Text</button>
         <button onClick={summarize}>Summarize</button>
+        <div>
+          <ReactMic
+            record={listening}
+            className="sound-wave"
+            strokeColor="#000000"
+            backgroundColor="#FFFFFF" />
+        </div>
         <p>{transcript}</p>
         {summary && <p>Summary: {summary}</p>}
       </div>
