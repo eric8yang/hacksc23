@@ -5,11 +5,13 @@ import React from "react";
 // We import all the components we need in our app
 
 import SpeechDetection from './components/speech-detect';
+import Auth from './components/auth';
  
 const App = () => {
  return (
    <div className="App">
-     <SpeechDetection />
+    <SpeechDetection />
+    <button onClick={Auth}>Sign In</button>
    </div>
  );
 };
