@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { ReactMic } from 'react-mic';
 import { storage, ref } from '../server/server';
 import { uploadString } from "@firebase/storage";
+import './button.css';
 
 const SpeechDetection = () => {
     const {
@@ -76,10 +77,10 @@ const SpeechDetection = () => {
     return (
       <div>
         <p>Microphone: {listening ? 'on' : 'off'} </p>
-        <button onClick={startRecording}>Start</button>
-        <button onClick={stopRecording}>Stop</button>
-        <button onClick={resetTranscript}>Reset</button>
-        <button onClick={handleDownload}>Download</button>
+        <button className='button' onClick={startRecording}>Start</button>
+        <button className='primary-btn' onClick={stopRecording}>Stop</button>
+        <button className='secondary-btn' onClick={resetTranscript}>Reset</button>
+        <button className='tertiary-btn' onClick={handleDownload}>Download</button>
         <button onClick={saveText}>Save Text</button>
         <button onClick={summarize}>Summarize</button>
         <div>

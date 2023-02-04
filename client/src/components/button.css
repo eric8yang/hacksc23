@@ -1,0 +1,54 @@
+/* Basic button styles */
+button {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Style for primary buttons */
+.primary-btn {
+  background-color: blue;
+  color: white;
+}
+
+.primary-btn:hover {
+  background-color: lightblue;
+}
+
+.primary-btn:active {
+  transform: translateY(2px);
+}
+
+/* Style for secondary buttons */
+.secondary-btn {
+  background-color: lightgrey;
+  color: black;
+}
+
+.secondary-btn:hover {
+  background-color: grey;
+}
+
+.secondary-btn:active {
+  transform: translateY(2px);
+}
+
+/* Style for tertiary buttons */
+.tertiary-btn {
+  background-color: white;
+  color: blue;
+  border: 2px solid blue;
+}
+
+.tertiary-btn:hover {
+  background-color: lightblue;
+}
+
+.tertiary-btn:active {
+  transform: translateY(2px);
+}
