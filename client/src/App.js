@@ -5,6 +5,7 @@ import { auth } from './server/server';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { SavedFiles } from './components/saved-files';
 import './App.css';
+import note from './images/note.svg'
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -27,6 +28,7 @@ const App = () => {
         <Link style={{ textDecoration: 'none', color: 'inherit' }} to="/">
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <h1>AudioNote</h1>
+            <img style={{ height: '40px', width: '40px' }} src={note} />
           </div>
         </Link>
 
