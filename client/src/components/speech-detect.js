@@ -2,7 +2,7 @@ import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognitio
 import React, { useState } from 'react';
 import { ReactMic } from 'react-mic';
 import { storage, ref, auth } from '../server/server';
-import { uploadString, updateMetadata } from "@firebase/storage";
+import { uploadString, updateMetadata, getDownloadURL } from "@firebase/storage";
 import { getAuth } from "firebase/auth";
 import Transcript from "./transcript";
 import './button.css';
@@ -21,6 +21,7 @@ const SpeechDetection = () => {
   const [recording, setRecording] = useState(null)
   const auth = getAuth();
   const user = auth.currentUser;
+  const [fileText, setFileText] = useState('');
 
   const startRecording = () => {
     setRecording(true);
@@ -88,6 +89,33 @@ const SpeechDetection = () => {
     })
   };
 
+  const checkUrlFile = () => {
+    const pathname = window.location.pathname;
+    const fileName = pathname.split('/').pop();
+    if (fileName) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  };
+
+  const getTextContents = () => {
+    const pathname = window.location.pathname;
+    const fileName = pathname.split('/').pop();
+    const storageRef = ref(storage, fileName);
+    console.log('filepath: ' + pathname);
+
+    getDownloadURL(storageRef).then(function(pathname) {
+      fetch(pathname)
+        .then(response => response.text())
+        .then(text => {
+          console.log(text);
+          setFileText(text);
+        });
+    });
+  };
+
   return (
     <div>
       <p>Microphone: {listening ? 'on' : 'off'} </p>
@@ -104,7 +132,17 @@ const SpeechDetection = () => {
           strokeColor="#000000"
           backgroundColor="#FFFFFF" />
       </div>
-      {Transcript(transcript)}
+      { checkUrlFile() ? 
+        <div>
+          {getTextContents()}
+          <p>{fileText}</p>
+        </div>
+        : 
+        <div>
+          {Transcript(transcript)}
+        </div>
+      }
+      {/* <p>{user.uid}</p> */}
       {summary && <p>Summary: {summary}</p>}
     </div>
   );

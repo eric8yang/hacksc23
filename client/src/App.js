@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import SpeechDetection from './components/speech-detect';
 import { auth } from './server/server';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import { SavedFiles } from './components/saved-files';
 import './App.css';
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
 
   return (
     <div className="App">
+        <SavedFiles />
       <SpeechDetection />
       <div className="logInOut">
         {!user ? <button onClick={logIn}>Sign In</button>
