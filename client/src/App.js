@@ -5,18 +5,19 @@ import './components/text.css'
 // We import all the components we need in our app
 
 import SpeechDetection from './components/speech-detect';
-import Auth from './components/auth';
+import Navbar from "./components/navbar";
+
  
 const App = () => {
  return (
    <div className="App">
+    {Navbar()}
     <h1>Header 1</h1>
     <h2>Header 2</h2>
     <h3>Header 3</h3>
     <h4>Header 4</h4>
     <p>Body Text</p>
     <SpeechDetection />
-    <button onClick={Auth}>Sign In</button>
    </div>
  );
 };
