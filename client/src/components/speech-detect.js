@@ -1,7 +1,15 @@
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import React, { useState } from 'react';
+<<<<<<< HEAD
 import { storage, ref, auth } from '../server/server';
 import { uploadString, updateMetadata } from "@firebase/storage";
+=======
+import { ReactMic } from 'react-mic';
+import { storage, ref } from '../server/server';
+import { uploadString } from "@firebase/storage";
+import Transcript from "./transcript";
+import './button.css';
+>>>>>>> origin/kaylyn
 
 const SpeechDetection = (user) => {
   const {
@@ -14,6 +22,17 @@ const SpeechDetection = (user) => {
   });
 
   const [summary, setSummary] = useState(null);
+  const [recording, setRecording] = useState(null)
+
+  const startRecording = () => {
+    setRecording(true);
+    SpeechRecognition.startListening();
+  }
+
+  const stopRecording = () => {
+    setRecording(false);
+    SpeechRecognition.stopListening();
+  }
 
 
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
@@ -66,9 +85,34 @@ const SpeechDetection = (user) => {
         }).catch((error) => {
           // Uh-oh, an error occurred!
         });
+<<<<<<< HEAD
     }).catch(function (error) {
       console.error("Error storing summarized text as text file: " + error);
     });
+=======
+    };
+
+    return (
+      <div>
+        <p>Microphone: {listening ? 'on' : 'off'} </p>
+        <button className='button' onClick={startRecording}>Start</button>
+        <button className='primary-btn' onClick={stopRecording}>Stop</button>
+        <button className='secondary-btn' onClick={resetTranscript}>Reset</button>
+        <button className='tertiary-btn' onClick={handleDownload}>Download</button>
+        <button onClick={saveText}>Save Text</button>
+        <button onClick={summarize}>Summarize</button>
+        <div>
+          <ReactMic
+            record={listening}
+            className="sound-wave"
+            strokeColor="#000000"
+            backgroundColor="#FFFFFF" />
+        </div>
+        {Transcript(transcript)}
+        {summary && <p>Summary: {summary}</p>}
+      </div>
+    );
+>>>>>>> origin/kaylyn
   };
 
   return (

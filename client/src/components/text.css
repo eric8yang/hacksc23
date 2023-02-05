@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-Regular.ttf') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: black;
+}
+
+/* Style for heading 1 */
+h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+/* Style for heading 2 */
+h2 {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+/* Style for heading 3 */
+h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+/* Style for body text */
+p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 20px 0;
+}

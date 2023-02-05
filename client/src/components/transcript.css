@@ -1,0 +1,9 @@
+.transcript {
+  background-color: #CBF3F0;
+  border-radius: 20px;
+  height: 180px;
+  overflow: scroll;
+  word-wrap: normal;
+  justify-content: center;
+  padding: 20px 15px;
+}
