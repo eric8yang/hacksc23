@@ -41,11 +41,9 @@ button {
 }
 
 .summarize {
-  display: flex;
-  position: absolute;
-  top: 90%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 
