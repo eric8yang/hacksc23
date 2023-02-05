@@ -7,12 +7,9 @@ import './App.css';
 
 const App = () => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
   const logIn = () => {
     signInWithPopup(auth, new GoogleAuthProvider())
       .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        setToken(credential.accessToken);
         setUser(result.user);
       });
   };
@@ -26,6 +23,9 @@ const App = () => {
   return (
     <div className="App">
         <SavedFiles />
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <h1>PROJECT TITLE</h1>
+      </div>
       <SpeechDetection />
       <div className="logInOut">
         {!user ? <button onClick={logIn}>Sign In</button>

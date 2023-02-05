@@ -1,3 +1,4 @@
+import axios from 'axios';
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import React, { useState } from 'react';
 import { ReactMic } from 'react-mic';
@@ -18,18 +19,16 @@ const SpeechDetection = () => {
   });
 
   const [summary, setSummary] = useState(null);
-  const [recording, setRecording] = useState(null)
+  const [isSaved, setIsSaved] = useState(false)
   const auth = getAuth();
   const user = auth.currentUser;
   const [fileText, setFileText] = useState('');
 
   const startRecording = () => {
-    setRecording(true);
     SpeechRecognition.startListening();
   }
 
   const stopRecording = () => {
-    setRecording(false);
     SpeechRecognition.stopListening();
   }
 
@@ -38,35 +37,23 @@ const SpeechDetection = () => {
     return <span> Browser doesn't support speech recognition </span>;
   }
 
-  const handleDownload = () => {
-    const element = document.createElement("a");
-    const file = new Blob([transcript], { type: "text/plain" });
-    element.href = URL.createObjectURL(file);
-    element.download = "transcript.txt";
-    document.body.appendChild(element);
-    element.click();
-  };
-
   const summarize = async () => {
-    const response = await fetch("https://api.openai.com/v1/engines/text-davinci-002/jobs", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer ${process.env.REACT_APP_OPENAI_KEY}"
-      },
-      body: JSON.stringify({
-        prompt: transcript,
-        max_tokens: 50
-      })
-    });
-
-    const data = await response.json();
-    setSummary(data.choices[0].text);
+    const payload = {
+      transcript: transcript,
+    }
+    axios
+      .post('http://localhost:3001/api/summarize', payload)
+      .then((resp) =>
+        setSummary(resp.data))
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   const saveText = () => {
+    setIsSaved(false)
     console.log("This function is running");
-    var summarizedText = transcript;
+    var summarizedText = summary ? summary : transcript;
     console.log(summarizedText)
     var fileName = "summarized_text_" + new Date().getTime() + ".txt";
     console.log(user);
@@ -86,6 +73,8 @@ const SpeechDetection = () => {
         }).catch((error) => {
           // Uh-oh, an error occurred!
         });
+
+      setIsSaved(true)
     })
   };
 
@@ -122,9 +111,9 @@ const SpeechDetection = () => {
       <button className='button' onClick={startRecording}>Start</button>
       <button className='primary-btn' onClick={stopRecording}>Stop</button>
       <button className='secondary-btn' onClick={resetTranscript}>Reset</button>
-      <button className='tertiary-btn' onClick={handleDownload}>Download</button>
       <button onClick={saveText}>Save Text</button>
       <button onClick={summarize}>Summarize</button>
+      {isSaved && <p>Your file has successfully been saved!</p>}
       <div>
         <ReactMic
           record={listening}
@@ -144,6 +133,8 @@ const SpeechDetection = () => {
       }
       {/* <p>{user.uid}</p> */}
       {summary && <p>Summary: {summary}</p>}
+      {Transcript(transcript)}
+      {summary && Transcript(summary)}
     </div>
   );
 };

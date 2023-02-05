@@ -8521,6 +8521,11 @@ react-mic@^12.4.6:
     prop-types "^15.5.10"
     react-ga "^2.2.0"
 
+react-openai-api@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-openai-api/-/react-openai-api-1.0.2.tgz#9c6363f5e2183f0ea3d45c790442a71218569cf5"
+  integrity sha512-jpyVrBmZryD3QbFLIW+6ltTRZ3En9m+ypppXS/selyKJ8URElP0Z/0YGqYHZ/X6oX9ryQdq/W435Mv1afsWbgQ==
+
 react-refresh@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"
