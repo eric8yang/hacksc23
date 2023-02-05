@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 import { ReactMic } from 'react-mic';
 import { storage, ref, auth } from '../server/server';
 import { uploadString, updateMetadata } from "@firebase/storage";
+import { getAuth } from "firebase/auth";
 import Transcript from "./transcript";
 import './button.css';
 
-const SpeechDetection = (user) => {
+const SpeechDetection = () => {
   const {
     transcript,
     listening,
@@ -18,6 +19,8 @@ const SpeechDetection = (user) => {
 
   const [summary, setSummary] = useState(null);
   const [recording, setRecording] = useState(null)
+  const auth = getAuth();
+  const user = auth.currentUser;
 
   const startRecording = () => {
     setRecording(true);
@@ -65,7 +68,8 @@ const SpeechDetection = (user) => {
     var summarizedText = transcript;
     console.log(summarizedText)
     var fileName = "summarized_text_" + new Date().getTime() + ".txt";
-    var fileRef = ref(storage, "summarizedTexts/" + fileName);
+    console.log(user);
+    var fileRef = ref(storage, String(user.uid) + "/summarizedTexts/" + fileName);
 
     uploadString(fileRef, summarizedText).then((snapshot) => {
       console.log("Summarized text stored as text file: " + fileName);
@@ -74,6 +78,7 @@ const SpeechDetection = (user) => {
           'uid': user.uid,
         }
       };
+      console.log(user.uid);
       updateMetadata(fileRef, metadata)
         .then((metadata) => {
           console.log("successfully updated metadata")
