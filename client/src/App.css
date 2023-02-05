@@ -8,6 +8,10 @@
     position: absolute;
 }
 
+.project-title {
+    animation: none !important;
+}
+
 p {
     margin: 0px;
     margin-bottom: 10px;
