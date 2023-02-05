@@ -19,17 +19,15 @@ const SpeechDetection = () => {
   });
 
   const [summary, setSummary] = useState(null);
-  const [recording, setRecording] = useState(null)
+  const [isSaved, setIsSaved] = useState(false)
   const auth = getAuth();
   const user = auth.currentUser;
 
   const startRecording = () => {
-    setRecording(true);
     SpeechRecognition.startListening();
   }
 
   const stopRecording = () => {
-    setRecording(false);
     SpeechRecognition.stopListening();
   }
 
@@ -73,6 +71,8 @@ const SpeechDetection = () => {
         }).catch((error) => {
           // Uh-oh, an error occurred!
         });
+
+      setIsSaved(true)
     })
   };
 
@@ -84,6 +84,7 @@ const SpeechDetection = () => {
       <button className='secondary-btn' onClick={resetTranscript}>Reset</button>
       <button onClick={saveText}>Save Text</button>
       <button onClick={summarize}>Summarize</button>
+      {isSaved && <p>Your file has successfully been saved!</p>}
       <div>
         <ReactMic
           record={listening}
