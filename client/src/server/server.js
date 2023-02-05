@@ -21,4 +21,11 @@ const auth = getAuth();
 
 const provider = new GoogleAuthProvider();
 
+module.exports = {
+  // your webpack configuration here
+  externals: {
+    "process": "process",
+  },
+};
+
 export { app, storage, auth, provider, ref }
