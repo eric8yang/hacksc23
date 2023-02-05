@@ -1,15 +1,10 @@
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import React, { useState } from 'react';
-<<<<<<< HEAD
+import { ReactMic } from 'react-mic';
 import { storage, ref, auth } from '../server/server';
 import { uploadString, updateMetadata } from "@firebase/storage";
-=======
-import { ReactMic } from 'react-mic';
-import { storage, ref } from '../server/server';
-import { uploadString } from "@firebase/storage";
 import Transcript from "./transcript";
 import './button.css';
->>>>>>> origin/kaylyn
 
 const SpeechDetection = (user) => {
   const {
