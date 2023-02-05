@@ -1,3 +1,4 @@
+import axios from 'axios';
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import React, { useState } from 'react';
 import { ReactMic } from 'react-mic';
@@ -5,6 +6,7 @@ import { storage, ref, auth } from '../server/server';
 import { uploadString, updateMetadata } from "@firebase/storage";
 import Transcript from "./transcript";
 import './button.css';
+
 
 const SpeechDetection = (user) => {
   const {
@@ -17,7 +19,7 @@ const SpeechDetection = (user) => {
   });
 
   const [summary, setSummary] = useState(null);
-  const [recording, setRecording] = useState(null)
+  const [recording, setRecording] = useState(null);
 
   const startRecording = () => {
     setRecording(true);
@@ -44,20 +46,15 @@ const SpeechDetection = (user) => {
   };
 
   const summarize = async () => {
-    const response = await fetch("https://api.openai.com/v1/engines/text-davinci-002/jobs", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer ${process.env.REACT_APP_OPENAI_KEY}"
-      },
-      body: JSON.stringify({
-        prompt: transcript,
-        max_tokens: 50
-      })
-    });
-
-    const data = await response.json();
-    setSummary(data.choices[0].text);
+    const payload = {
+      transcript: transcript,
+    }
+    axios
+      .post('http://localhost:3001/api/summarize', payload)
+      .then(() => console.log('Book Created'))
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   const saveText = () => {
