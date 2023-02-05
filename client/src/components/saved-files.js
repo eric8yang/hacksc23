@@ -1,8 +1,9 @@
 import { React, useState, useEffect } from 'react';
 import { getAuth } from "firebase/auth";
-import { getStorage, ref, listAll } from 'firebase/storage';
+import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
 import fileImg from './file.png'
 import './saved-files.css';
+import { storage } from '../server/server';
 
 const SavedFiles = () => {
     const [files, setFiles] = useState([]);
@@ -27,15 +28,40 @@ const SavedFiles = () => {
             });
         }
     };
+    
 
     useEffect(() => ListFiles(), [user])
 
     return (
         <div className="file-grid">
             {files.map((file, index) => (
-                <div onClick={() => window.location.href = user.uid + '/summarizedTexts/' + file}
-                    key={index}
-                    className="file-tile">
+                <div onClick={() => {
+                    const storage = getStorage();
+                    console.log(file);
+                    const fileRef = ref(storage, String(user.uid) + "/summarizedTexts/" + file);
+                    getDownloadURL(fileRef)
+                        .then((url) => {
+                            const xhr = new XMLHttpRequest();
+                            xhr.responseType = 'blob';
+                            xhr.onload = (event) => {
+                              const blob = xhr.response;
+                              const a = document.createElement('a');
+                                a.style.display = 'none';
+                                a.href = URL.createObjectURL(blob);
+                                a.download = file;
+                                document.body.appendChild(a);
+                                a.click();
+                                document.body.removeChild(a);
+                            };
+                            xhr.open('GET', url);
+                            xhr.send();
+                        })
+
+
+                        .catch(error => {
+                            console.error(error);
+                        });
+                }} key={index} className="file-tile">
                     <img src={fileImg} />
                     <p>{file}</p>
                 </div>

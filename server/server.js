@@ -5,11 +5,11 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 const express = require('express');
-const cors = require('cors');
+// const cors = require('cors');
 
 const app = express();
 
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 app.post("/api/summarize", async (req, res) => {
