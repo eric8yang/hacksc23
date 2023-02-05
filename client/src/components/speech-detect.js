@@ -7,6 +7,10 @@ import { uploadString, updateMetadata, getDownloadURL } from "@firebase/storage"
 import { getAuth } from "firebase/auth";
 import Transcript from "./transcript";
 import './button.css';
+import micOnImg from '../images/mic_on.png';
+import micOffImg from '../images/mic_off.png';
+
+
 
 const SpeechDetection = () => {
   const {
@@ -107,12 +111,11 @@ const SpeechDetection = () => {
 
   return (
     <div>
-      <p>Microphone: {listening ? 'on' : 'off'} </p>
-      <button className='button' onClick={startRecording}>Start</button>
+      <p>{listening ? 'Speaking' : 'Ready to Connect'} </p>
+      <button className='secondary-btn' onClick={startRecording}>Start</button>
       <button className='primary-btn' onClick={stopRecording}>Stop</button>
       <button className='secondary-btn' onClick={resetTranscript}>Reset</button>
-      <button onClick={saveText}>Save Text</button>
-      <button onClick={summarize}>Summarize</button>
+      <button className = 'secondary-btn' onClick={saveText}>Save Transcript</button>
       {isSaved && <p>Your file has successfully been saved!</p>}
       <div>
         <ReactMic
@@ -124,7 +127,7 @@ const SpeechDetection = () => {
       { checkUrlFile() ? 
         <div>
           {getTextContents()}
-          <p>{fileText}</p>
+          {Transcript(fileText)}
         </div>
         : 
         <div>
@@ -134,6 +137,8 @@ const SpeechDetection = () => {
       {summary && <p>Summary: {summary}</p>}
       {Transcript(transcript)}
       {summary && Transcript(summary)}
+
+      <button className = 'secondary-btn summarize' onClick={summarize}>Summarize</button>
     </div>
   );
 };

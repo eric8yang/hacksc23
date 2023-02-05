@@ -40,6 +40,15 @@ button {
   transform: translateY(2px);
 }
 
+.summarize {
+  display: flex;
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
 /* Style for tertiary buttons */
 .tertiary-btn {
   background-color: white;

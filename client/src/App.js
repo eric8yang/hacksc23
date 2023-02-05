@@ -24,7 +24,7 @@ const App = () => {
     <div className="App">
         <SavedFiles />
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <h1>PROJECT TITLE</h1>
+        <h1 id="project-title">PROJECT TITLE</h1>
       </div>
       <SpeechDetection />
       <div className="logInOut">

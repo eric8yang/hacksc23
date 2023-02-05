@@ -7,3 +7,7 @@
 .title {
     position: absolute;
 }
+
+.project-title {
+    animation: none !important;
+}
