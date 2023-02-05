@@ -18,7 +18,7 @@ app.post("/api/summarize", async (req, res) => {
 
   const response = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: "Summarize this conversation: \n" + transcript,
+    prompt: "Summarize this conversation using bullet points: \n" + transcript,
     temperature: 0,
     max_tokens: 2048,
   });

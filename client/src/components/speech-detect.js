@@ -47,8 +47,10 @@ const SpeechDetection = () => {
     }
     axios
       .post('http://localhost:3001/api/summarize', payload)
-      .then((resp) =>
-        setSummary(resp.data))
+      .then((resp) => {
+        console.log(resp.data)
+        setSummary(resp.data)
+      })
       .catch(err => {
         console.error(err);
       });
@@ -115,7 +117,7 @@ const SpeechDetection = () => {
       <button className='secondary-btn' onClick={startRecording}>Start</button>
       <button className='primary-btn' onClick={stopRecording}>Stop</button>
       <button className='secondary-btn' onClick={resetTranscript}>Reset</button>
-      <button className = 'secondary-btn' onClick={saveText}>Save Transcript</button>
+      <button className='secondary-btn' onClick={saveText}>Save Transcript</button>
       {isSaved && <p>Your file has successfully been saved!</p>}
       <div>
         <ReactMic
@@ -137,7 +139,7 @@ const SpeechDetection = () => {
       {/* <p>{user.uid}</p> */}
       {summary && Transcript(summary)}
 
-      <button className = 'secondary-btn summarize' onClick={summarize}>Summarize</button>
+      <button className='secondary-btn summarize' onClick={summarize}>Summarize</button>
     </div>
   );
 };
