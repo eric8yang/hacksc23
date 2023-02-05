@@ -2,8 +2,8 @@ import axios from 'axios';
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import React, { useState } from 'react';
 import { ReactMic } from 'react-mic';
-import { storage, ref } from '../server/server';
-import { uploadString, updateMetadata } from "@firebase/storage";
+import { storage, ref, auth } from '../server/server';
+import { uploadString, updateMetadata, getDownloadURL } from "@firebase/storage";
 import { getAuth } from "firebase/auth";
 import Transcript from "./transcript";
 import './button.css';
@@ -22,6 +22,7 @@ const SpeechDetection = () => {
   const [isSaved, setIsSaved] = useState(false)
   const auth = getAuth();
   const user = auth.currentUser;
+  const [fileText, setFileText] = useState('');
 
   const startRecording = () => {
     SpeechRecognition.startListening();
@@ -77,6 +78,33 @@ const SpeechDetection = () => {
     })
   };
 
+  const checkUrlFile = () => {
+    const pathname = window.location.pathname;
+    const fileName = pathname.split('/').pop();
+    if (fileName) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  };
+
+  const getTextContents = () => {
+    const pathname = window.location.pathname;
+    const fileName = pathname.split('/').pop();
+    const storageRef = ref(storage, fileName);
+    console.log('filepath: ' + pathname);
+
+    getDownloadURL(storageRef).then(function(pathname) {
+      fetch(pathname)
+        .then(response => response.text())
+        .then(text => {
+          console.log(text);
+          setFileText(text);
+        });
+    });
+  };
+
   return (
     <div>
       <p>Microphone: {listening ? 'on' : 'off'} </p>
@@ -93,6 +121,18 @@ const SpeechDetection = () => {
           strokeColor="#000000"
           backgroundColor="#FFFFFF" />
       </div>
+      { checkUrlFile() ? 
+        <div>
+          {getTextContents()}
+          <p>{fileText}</p>
+        </div>
+        : 
+        <div>
+          {Transcript(transcript)}
+        </div>
+      }
+      {/* <p>{user.uid}</p> */}
+      {summary && <p>Summary: {summary}</p>}
       {Transcript(transcript)}
       {summary && Transcript(summary)}
     </div>
