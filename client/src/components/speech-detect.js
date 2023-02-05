@@ -80,46 +80,26 @@ const SpeechDetection = (user) => {
         }).catch((error) => {
           // Uh-oh, an error occurred!
         });
-<<<<<<< HEAD
-    }).catch(function (error) {
-      console.error("Error storing summarized text as text file: " + error);
-    });
-=======
-    };
-
-    return (
-      <div>
-        <p>Microphone: {listening ? 'on' : 'off'} </p>
-        <button className='button' onClick={startRecording}>Start</button>
-        <button className='primary-btn' onClick={stopRecording}>Stop</button>
-        <button className='secondary-btn' onClick={resetTranscript}>Reset</button>
-        <button className='tertiary-btn' onClick={handleDownload}>Download</button>
-        <button onClick={saveText}>Save Text</button>
-        <button onClick={summarize}>Summarize</button>
-        <div>
-          <ReactMic
-            record={listening}
-            className="sound-wave"
-            strokeColor="#000000"
-            backgroundColor="#FFFFFF" />
-        </div>
-        {Transcript(transcript)}
-        {summary && <p>Summary: {summary}</p>}
-      </div>
-    );
->>>>>>> origin/kaylyn
+    })
   };
 
   return (
     <div>
       <p>Microphone: {listening ? 'on' : 'off'} </p>
-      <button onClick={SpeechRecognition.startListening}>Start</button>
-      <button onClick={SpeechRecognition.stopListening}>Stop</button>
-      <button onClick={resetTranscript}>Reset</button>
-      <button onClick={handleDownload}>Download</button>
+      <button className='button' onClick={startRecording}>Start</button>
+      <button className='primary-btn' onClick={stopRecording}>Stop</button>
+      <button className='secondary-btn' onClick={resetTranscript}>Reset</button>
+      <button className='tertiary-btn' onClick={handleDownload}>Download</button>
       <button onClick={saveText}>Save Text</button>
       <button onClick={summarize}>Summarize</button>
-      <p>{transcript}</p>
+      <div>
+        <ReactMic
+          record={listening}
+          className="sound-wave"
+          strokeColor="#000000"
+          backgroundColor="#FFFFFF" />
+      </div>
+      {Transcript(transcript)}
       {summary && <p>Summary: {summary}</p>}
     </div>
   );
