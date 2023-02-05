@@ -2,7 +2,7 @@ import axios from 'axios';
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import React, { useState } from 'react';
 import { ReactMic } from 'react-mic';
-import { storage, ref, auth } from '../server/server';
+import { storage, ref } from '../server/server';
 import { uploadString, updateMetadata } from "@firebase/storage";
 import { getAuth } from "firebase/auth";
 import Transcript from "./transcript";
@@ -50,8 +50,9 @@ const SpeechDetection = () => {
   };
 
   const saveText = () => {
+    setIsSaved(false)
     console.log("This function is running");
-    var summarizedText = transcript;
+    var summarizedText = summary ? summary : transcript;
     console.log(summarizedText)
     var fileName = "summarized_text_" + new Date().getTime() + ".txt";
     console.log(user);
