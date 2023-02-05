@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import SpeechDetection from './components/speech-detect';
 import { auth } from './server/server';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
@@ -22,18 +23,28 @@ const App = () => {
 
   return (
     <div className="App">
-        <SavedFiles />
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <h1 id="project-title">PROJECT TITLE</h1>
-      </div>
-      <SpeechDetection />
-      <div className="logInOut">
-        {!user ? <button onClick={logIn}>Sign In</button>
-          : <>
-            <p>{user.email}</p>
-            <button onClick={logOut}>Log Out</button>
-          </>}
-      </div>
+      <BrowserRouter>
+        <Link style={{ textDecoration: 'none', color: 'inherit' }} to="/">
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <h1>AudioNote</h1>
+          </div>
+        </Link>
+
+        <div className="logInOut">
+          {!user ? <button onClick={logIn}>Sign In</button>
+            : <>
+              <p>{user.email}</p>
+              <Link to='/saved'>
+                <button className='saved'>Saved Files</button>
+              </Link>
+              <button onClick={logOut}>Log Out</button>
+            </>}
+        </div>
+        <Routes>
+          <Route path="/" element={<SpeechDetection />}></Route>
+          <Route path="/saved" element={<SavedFiles />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };

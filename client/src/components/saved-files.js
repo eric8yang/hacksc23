@@ -1,19 +1,14 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';
 import { getAuth } from "firebase/auth";
-import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
+import { getStorage, ref, listAll } from 'firebase/storage';
 import fileImg from './file.png'
+import './saved-files.css';
 
 const SavedFiles = () => {
-    const [files, setFiles] = React.useState([]);
-    const [selectedFile, setSelectedFile] = React.useState(null);
-    const [fullFiles, setFullFiles] = React.useState('');
+    const [files, setFiles] = useState([]);
 
     const auth = getAuth();
     const user = auth.currentUser;
-    const DisplayFiles = (itemRef) => {
-        console.log(itemRef);
-        setFiles(...files => [itemRef, files]);
-    }
 
     const ListFiles = () => {
         if (user) {
@@ -21,26 +16,29 @@ const SavedFiles = () => {
             const storageRef = ref(storage, String(user.uid) + '/summarizedTexts/');
 
             // Get a list of all items (files and directories) in the directory
-            listAll(storageRef).then(function(res) {
-            const files = res.items.map(function(itemRef) {
-                console.log(itemRef.fullPath);
-                return itemRef.name;
-            });
-            setFiles(files);
-            }).catch(function(error) {
-            console.error("Error listing items in directory:", error);
+            listAll(storageRef).then(function (res) {
+                const files = res.items.map(function (itemRef) {
+                    console.log(itemRef.fullPath);
+                    return itemRef.name;
+                });
+                setFiles(files);
+            }).catch(function (error) {
+                console.error("Error listing items in directory:", error);
             });
         }
     };
 
+    useEffect(() => ListFiles(), [user])
+
     return (
-        <div>
-            {user ?  <button className='button' onClick={ListFiles}>Saved Files</button> : null}
-          {files.map((file, index) => (
-            <div key={index}>
-                <img src={fileImg}/>
-                <p onClick={() => window.location.href= user.uid + '/summarizedTexts/' + file}>{file}</p>
-            </div>
+        <div className="file-grid">
+            {files.map((file, index) => (
+                <div onClick={() => window.location.href = user.uid + '/summarizedTexts/' + file}
+                    key={index}
+                    className="file-tile">
+                    <img src={fileImg} />
+                    <p>{file}</p>
+                </div>
             ))}
         </div>
     );
