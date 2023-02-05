@@ -38,22 +38,14 @@ const SpeechDetection = () => {
     return <span> Browser doesn't support speech recognition </span>;
   }
 
-  const handleDownload = () => {
-    const element = document.createElement("a");
-    const file = new Blob([transcript], { type: "text/plain" });
-    element.href = URL.createObjectURL(file);
-    element.download = "transcript.txt";
-    document.body.appendChild(element);
-    element.click();
-  };
-
   const summarize = async () => {
     const payload = {
       transcript: transcript,
     }
     axios
       .post('http://localhost:3001/api/summarize', payload)
-      .then(() => console.log('Book Created'))
+      .then((resp) =>
+        setSummary(resp.data))
       .catch(err => {
         console.error(err);
       });
@@ -90,7 +82,6 @@ const SpeechDetection = () => {
       <button className='button' onClick={startRecording}>Start</button>
       <button className='primary-btn' onClick={stopRecording}>Stop</button>
       <button className='secondary-btn' onClick={resetTranscript}>Reset</button>
-      <button className='tertiary-btn' onClick={handleDownload}>Download</button>
       <button onClick={saveText}>Save Text</button>
       <button onClick={summarize}>Summarize</button>
       <div>
@@ -101,7 +92,7 @@ const SpeechDetection = () => {
           backgroundColor="#FFFFFF" />
       </div>
       {Transcript(transcript)}
-      {summary && <p>Summary: {summary}</p>}
+      {summary && Transcript(summary)}
     </div>
   );
 };

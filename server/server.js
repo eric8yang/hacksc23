@@ -1,6 +1,7 @@
+require('dotenv').config()
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
-  apiKey: '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',
+  apiKey: process.env.OPENAI_KEY,
 });
 const openai = new OpenAIApi(configuration);
 const express = require('express');
@@ -17,9 +18,9 @@ app.post("/api/summarize", async (req, res) => {
 
   const response = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: "summarize: \n" + transcript,
+    prompt: "Summarize this conversation: \n" + transcript,
     temperature: 0,
-    max_tokens: 60,
+    max_tokens: 2048,
   });
   console.log(response.data.choices)
   res.send(response.data.choices[0].text)

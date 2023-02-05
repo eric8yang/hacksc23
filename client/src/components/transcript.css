@@ -4,6 +4,23 @@
   height: 180px;
   overflow: scroll;
   word-wrap: normal;
+  position: relative;
   justify-content: center;
   padding: 20px 15px;
+  margin-bottom: 20px;
+}
+
+.download-button{
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  background: none;
+  padding: 0;
+}
+
+.download-image{
+  width: 20px;
+  height: auto;
 }

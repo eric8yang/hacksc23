@@ -9,6 +9,7 @@ button {
   cursor: pointer;
   outline: none;
   transition: all 0.2s ease-in-out;
+  margin-right: 10px;
 }
 
 /* Style for primary buttons */
