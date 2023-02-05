@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <SpeechDetection user={user} />
+      <SpeechDetection />
       <div className="logInOut">
         {!user ? <button onClick={logIn}>Sign In</button>
           : <>
