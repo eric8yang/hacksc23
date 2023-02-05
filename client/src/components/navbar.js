@@ -8,7 +8,7 @@ const Navbar = () => {
     <nav>
       <ul>
         <li>
-          <button onClick={Auth}>Sign In</button>
+          <button className="secondary-btn" onClick={Auth}>Sign In</button>
         </li>
       </ul>
     </nav>
