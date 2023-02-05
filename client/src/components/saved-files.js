@@ -35,15 +35,13 @@ const SavedFiles = () => {
 
     return (
         <div>
-          <button className='button' onClick={ListFiles}>List Files</button>
-          {/* <script> */}
+            {user ?  <button className='button' onClick={ListFiles}>Saved Files</button> : null}
           {files.map((file, index) => (
             <div key={index}>
                 <img src={fileImg}/>
                 <p onClick={() => window.location.href= user.uid + '/summarizedTexts/' + file}>{file}</p>
             </div>
             ))}
-          {/* </script> */}
         </div>
     );
 };

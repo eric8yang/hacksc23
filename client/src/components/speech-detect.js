@@ -90,13 +90,13 @@ const SpeechDetection = () => {
   };
 
   const getTextContents = () => {
-    const pathname = window.location.pathname;
-    const fileName = pathname.split('/').pop();
+    const filePath = window.location.pathname;
+    const fileName = filePath.split('/').pop();
     const storageRef = ref(storage, fileName);
-    console.log('filepath: ' + pathname);
+    console.log('filepath: ' + filePath);
 
-    getDownloadURL(storageRef).then(function(pathname) {
-      fetch(pathname)
+    getDownloadURL(storageRef).then(function(filePath) {
+      fetch(user.uid + '/summarizedTexts/' + filePath)
         .then(response => response.text())
         .then(text => {
           console.log(text);
@@ -131,7 +131,6 @@ const SpeechDetection = () => {
           {Transcript(transcript)}
         </div>
       }
-      {/* <p>{user.uid}</p> */}
       {summary && <p>Summary: {summary}</p>}
       {Transcript(transcript)}
       {summary && Transcript(summary)}
