@@ -95,7 +95,7 @@ const SpeechDetection = () => {
     const storageRef = ref(storage, fileName);
     console.log('filepath: ' + filePath);
 
-    getDownloadURL(storageRef).then(function(filePath) {
+    getDownloadURL(storageRef).then(function (filePath) {
       fetch(user.uid + '/summarizedTexts/' + filePath)
         .then(response => response.text())
         .then(text => {
@@ -121,18 +121,17 @@ const SpeechDetection = () => {
           strokeColor="#000000"
           backgroundColor="#FFFFFF" />
       </div>
-      { checkUrlFile() ? 
+      {checkUrlFile() ?
         <div>
           {getTextContents()}
           <p>{fileText}</p>
         </div>
-        : 
+        :
         <div>
           {Transcript(transcript)}
         </div>
       }
-      {summary && <p>Summary: {summary}</p>}
-      {Transcript(transcript)}
+      {/* <p>{user.uid}</p> */}
       {summary && Transcript(summary)}
     </div>
   );
