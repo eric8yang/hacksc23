@@ -108,11 +108,11 @@ const SpeechDetection = () => {
   return (
     <div>
       <p>Microphone: {listening ? 'on' : 'off'} </p>
-      <button className='button' onClick={startRecording}>Start</button>
+      <button className='primary-btn' onClick={startRecording}>Start</button>
       <button className='primary-btn' onClick={stopRecording}>Stop</button>
       <button className='secondary-btn' onClick={resetTranscript}>Reset</button>
-      <button onClick={saveText}>Save Text</button>
-      <button onClick={summarize}>Summarize</button>
+      <button className='secondary-btn' onClick={saveText}>Save Text</button>
+      <button className='secondary-btn' onClick={summarize}>Summarize</button>
       {isSaved && <p>Your file has successfully been saved!</p>}
       <div>
         <ReactMic
