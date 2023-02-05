@@ -1,22 +1,5 @@
 import { React, useState } from "react";
 import SpeechDetection from './components/speech-detect';
-<<<<<<< HEAD
-import Navbar from "./components/navbar";
-
- 
-const App = () => {
- return (
-   <div className="App">
-    {Navbar()}
-    <h1>Header 1</h1>
-    <h2>Header 2</h2>
-    <h3>Header 3</h3>
-    <h4>Header 4</h4>
-    <p>Body Text</p>
-    <SpeechDetection />
-   </div>
- );
-=======
 import { auth } from './server/server';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import './App.css';
@@ -51,7 +34,6 @@ const App = () => {
       </div>
     </div>
   );
->>>>>>> 5973c3bbf6340e27ac12528c561af3c28a84356f
 };
 
 export default App;
